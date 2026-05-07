@@ -1,38 +1,85 @@
-# 🌐 Graph-Summarized SHAP: AQI Prediction & Interpretability
-### B.Tech Final Year Project | Patent-Pending Architecture (2026)
+# AQI Prediction and SHAP Explainability Dashboard
 
-## 🚀 Project Vision
-This project addresses the critical "Black-Box" challenge in atmospheric science. While standard Machine Learning models offer high predictive power, they often fail to explain why a specific air quality alert was triggered. This system utilizes a novel Graph-Summarized SHAP framework to bridge the gap between complex AI and human understanding.
+This project predicts PM2.5 air pollution levels using an XGBoost model and explains the prediction with SHAP values. It includes a Streamlit dashboard where users can adjust pollutant and time-series inputs, view the predicted PM2.5 concentration, and inspect which features influenced the prediction.
 
-![Local Interpretability](shap_force_plot.png)
+## Project Objective
 
-## 📊 Performance Benchmarks :
+Air quality models can give useful predictions, but their output is hard to trust if the reason behind the prediction is not visible. This project focuses on two parts:
 
-*   Predictive Accuracy ($R^2$): 0.9097 (91%)
-*   Interpretability Score: 94% (Industrial validation)
-*   Response Time: Real-time inference on Edge AI hardware (HP Pavilion 15, i5-1340p)
+- predicting PM2.5 concentration from pollutant and lag-based features
+- explaining each prediction using SHAP feature attribution
 
-![Global Feature Impact](shap_beeswarm.png)
+## Tech Stack
 
-## 🛠️ The Innovation: Modular XAI
-Unlike standard SHAP plots that show 20+ disconnected features, our Graph-Summarized approach uses Louvain Community Detection to group pollutants into logical "Atmospheric Clusters":
+- Python
+- Streamlit
+- Pandas
+- NumPy
+- XGBoost
+- SHAP
+- Matplotlib
 
-*   **Temporal Momentum Cluster**: Lags and rolling averages that track the persistence of pollution.
-*   **Chemical Precursor Cluster**: Interactions between $NO_2$, $SO_2$, and $O_3$.
-*   **Particulate Matter Cluster**: Correlations between $PM_{10}$ and $PM_{2.5}$ delta movements.
+## Repository Structure
 
-![Community Detection Graph](community_detection_graph.png)
+```text
+.
+├── app.py
+├── aqi_xgboost_91.model
+├── Data Export.csv
+├── requirements.txt
+└── README.md
+```
 
-## 📂 Repository Contents :
-*   `app.py`: The main Streamlit dashboard logic.
-*   `aqi_xgboost_91.model`: The optimized, serialized XGBoost brain.
-*   `india-aqi.csv`: Regional validation dataset for Northern India.
-*   `requirements.txt`: Environment configuration.
+## Features
 
-![Global Community Explanation](global_explanation_bar.png)
+- Interactive Streamlit dashboard
+- PM2.5 prediction using a trained XGBoost model
+- Input sliders for pollutant and time-series values
+- Air quality category display
+- SHAP force plot for local model explanation
 
-## 📜 Academic & Legal Notice
-This project is part of a formal B.Tech graduation requirement. The methodology, specifically the Modularization of SHAP Interaction Values via Graph Theory, is currently under preparation for a 2026 Patent Filing under the category of "Explainable Atmospheric Forecasting Systems ".
+## Visual Output
 
-**Author:** Divyanshu Rajput
-**Academic Year:** 2025-2026
+The repository includes saved explainability images such as SHAP plots and feature impact charts. These help explain how the model interprets pollutant and time-series features.
+
+## How To Run
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+## Model Inputs Used In The App
+
+The dashboard accepts these visible inputs:
+
+- PM10
+- NO2
+- SO2
+- rolling mean over 3 hours
+- PM2.5 delta
+
+The model also expects additional lag and pollutant features. In the current dashboard version, those extra values are filled with baseline values so the trained model receives the correct feature order.
+
+## What I Learned
+
+- How to load and use a saved XGBoost model
+- How to build an interactive ML dashboard with Streamlit
+- How SHAP helps explain model predictions
+- Why feature order matters during model inference
+- How to present model output in a user-friendly way
+
+## Limitations
+
+- Some model inputs are currently set to baseline values in the app.
+- The dashboard is a prototype and should not be used for real public-health decisions.
+- More validation is needed before using this model outside a learning or academic context.
+
+## Future Improvements
+
+- Add full input support for all model features
+- Display global SHAP plots in the dashboard
+- Add dataset preprocessing and training notebook
+- Add model evaluation metrics and charts
+- Deploy the app online
+
